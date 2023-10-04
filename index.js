@@ -4,9 +4,10 @@ const socketIO = require("socket.io");
 const mongoose = require("mongoose");
 const utils = require("./utils/utils.js");
 const { socketConnections } = require("./utils/socket.io.js");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 3001;
-const cors = {
+const corsObj = {
   origin: process.env.FRONTEND,
 };
 
@@ -17,12 +18,14 @@ async function main() {
 
     const app = express();
 
+    app.use(cors(corsObj));
+
     app.get("/", (req, res) =>
       res.send({ status: "welcome to btc tracker API" })
     );
 
     const httpServer = http.createServer(app);
-    const io = socketIO(httpServer, { cors });
+    const io = socketIO(httpServer, { cors: corsObj });
 
     socketConnections(io);
 
