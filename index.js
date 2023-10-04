@@ -8,7 +8,7 @@ const cors = require("cors");
 
 const PORT = process.env.PORT || 3001;
 const corsObj = {
-  origin: process.env.FRONTEND,
+  origin: process.env.FRONTEND || "https://funny-pie-7c1dff.netlify.app/",
 };
 
 async function main() {
@@ -30,7 +30,7 @@ async function main() {
     socketConnections(io);
 
     httpServer.listen(PORT, () =>
-      console.log(`server running on port ${PORT}`)
+      console.log(`server running on port ${PORT}`, process.env.FRONTEND)
     );
   } catch (err) {
     console.log("err", err);
