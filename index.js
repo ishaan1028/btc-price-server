@@ -17,6 +17,10 @@ async function main() {
 
     const app = express();
 
+    app.get("/", (req, res) =>
+      res.send({ status: "welcome to btc tracker API" })
+    );
+
     const httpServer = http.createServer(app);
     const io = socketIO(httpServer, { cors });
 
